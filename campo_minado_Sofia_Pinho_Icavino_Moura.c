@@ -171,8 +171,9 @@ int colocarQuantidadeDeBombas(int **matriz, int linha, int coluna, int tamanho){
     return quantBombas++;
 }
 
-/*Função responsável por verificar se não há bomba no local, e chamar a função 
-'colocarQuantidadeDeBombas' para somar quantas bombas tem ao redor da coordenada*/
+/*Função responsável por percorrer cada coordenada da matriz, e quando não há bomba no local 
+é chamada a função 'colocarQuantidadeDeBombas' para somar quantas bombas tem ao redor 
+da coordenada*/
 void montarMatrizDoJogo(int **matriz,int tamanho){
    int i=0,j=0;
 
