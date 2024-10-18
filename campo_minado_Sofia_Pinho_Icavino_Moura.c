@@ -277,7 +277,6 @@ int verificar_Coordenada_Repetida(int linha, int coluna,int ** matriz_copia){
 
    /*Função para alocar, criar e inicializar a matriz de vizualizção do usuário*/
    char **campo_minado_usuario= alocarEinicializar_matriz_usuario(tam);
-   visualizar_matriz(campo_minado,tam);
    
    while(cont<tam*tam-quantBombas && flagbomba){
 
