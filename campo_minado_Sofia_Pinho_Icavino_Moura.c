@@ -40,7 +40,7 @@ char** alocarEinicializar_matriz_usuario(int tamanho){
    return matriz_alocada;
 }
 
-/*Função para inicialização das matrizes inteiras*/
+/*Função para inicialização das matrizes inteiras com 0*/
 void inicializar_matriz(int **matriz,int tamanho){
 	int i=0,j=0;
 
@@ -112,7 +112,7 @@ void inserirBombas(int quantBombas,int **matriz,int tamanho){
 
       /*O if irá verficar se já existe bomba no local escolhido, para que as bombas 
       não sejam geradas no mesmo local.
-      Se na coordenada sorteada estiver o valor 0 não tem bomba. Assim adicionando -1 no local
+      Se na coordenada sorteada estiver o valor 0, não tem bomba. Assim, adicionando -1 no local
       da bomba. Quando diferente de zero, quer dizer que há bomba no local e é gerado uma 
       nova coordenada até atingir a quantidade certa de bombas*/
       if(matriz[linha][coluna]==0){
@@ -199,8 +199,7 @@ void modificar_campo_minado(int **matrizJogo,char **matrizUsuario,int n,int m,in
   }else{
 
    /*Caso contrário, a coordenada selecionada pelo usuário recebe a quantidade de bombas vizinhas.
-   Recebida da matriz "original" do jogo, montada logo no início.
-   */
+   Recebida da matriz "original" do jogo, montada logo no início.*/
    matrizUsuario[n][m]=matrizJogo[n][m]+'0';
    printf("\n\nUHU! Sem bomba por aqui!\n");
   }
@@ -279,7 +278,9 @@ int verificar_Coordenada_Repetida(int linha, int coluna,int ** matriz_copia){
    /*Função para alocar, criar e inicializar a matriz de vizualizção do usuário*/
    char **campo_minado_usuario= alocarEinicializar_matriz_usuario(tam);
    
-   while(cont<tam*tam-quantBombas && flagbomba){
+
+   int quantJogadas=tam*tam-quantBombas; //calcula a quantidade de jogadas do usuário
+   while(cont<quantJogadas && flagbomba){
 
       printf("***********************************************\n");
       printf("|Dificuldade: %d        |Quantidade de bombas:%d\n",modo,quantBombas);
@@ -316,7 +317,6 @@ int verificar_Coordenada_Repetida(int linha, int coluna,int ** matriz_copia){
 
    /*Quando encerrado as tentativas, verifica se o jogador ganhou ou perdeu, através da flagbomba.
    Mostrando a matriz original do jogo.*/
-   visualizar_matriz_usuario(campo_minado_usuario,tam);
    if(flagbomba==0){
       printf("\ngame over\n\n");
    }else{
