@@ -292,7 +292,7 @@ int verificar_Coordenada_Repetida(int linha, int coluna,int ** matriz_copia){
 
       //Chama a função para verificar se a coordenada digitida pelo usuário existe
       if(verificar_Coordenada_Existente(linha, coluna,tam)==0){
-         printf("\n\n-> COORDENADA NAO EXISTE. Digite novamente:");
+         printf("\n\n-> COORDENADA NAO EXISTE. Digite novamente!\n");
       }else{
 
          //Chama a função para verificar se a coordenada digitida pelo usuário é repetida
@@ -306,7 +306,7 @@ int verificar_Coordenada_Repetida(int linha, int coluna,int ** matriz_copia){
             modificar_campo_minado(campo_minado,campo_minado_usuario,linha,coluna,&flagbomba);
             cont++;
          }else{
-            printf("\n\n-> COORDENADA JA SELECIONADA. Digite novamente:");
+            printf("\n\n-> COORDENADA JA SELECIONADA. Digite novamente!\n");
          }
 
       }
