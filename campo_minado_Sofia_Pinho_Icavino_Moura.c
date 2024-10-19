@@ -195,7 +195,7 @@ void modificar_campo_minado(int **matrizJogo,char **matrizUsuario,int n,int m,in
   if(matrizJogo[n][m]==-1){
    *bomba=0;
    matrizUsuario[n][m]='*';
-   printf("\n\nBOOH! Ja era... F\n");
+   printf("\n\nBOOH! Ja era...");
   }else{
 
    /*Caso contrário, a coordenada selecionada pelo usuário recebe a quantidade de bombas vizinhas.
@@ -230,7 +230,7 @@ int verificar_Coordenada_Repetida(int linha, int coluna,int ** matriz_copia){
 }
 
  int main(void){
-   int modo=0,tam=0,quantBombas=0,linha,coluna,cont=0,flagbomba=1;
+   int modo=0,tam=0,quantBombas=0,linha,coluna,cont=0,flagbomba=1,i=0;
 
    printf("************ BEM VINDO(A) AO CAMPO MINADO! ************\n");
    printf("Para iniciar o jogo selecione o modo. Digite:\n1 - Facil\n2 - Medio\n3 - Dificil\n");
@@ -325,8 +325,19 @@ int verificar_Coordenada_Repetida(int linha, int coluna,int ** matriz_copia){
    printf("MATRIZ ORIGINAL DO JOGO:\n");
    visualizar_matriz(campo_minado,tam);
 
+   for(i=0;i<tam;i++){
+      free(campo_minado[i]);
+   }
    free(campo_minado);
+
+   for(i=0;i<tam;i++){
+      free(campo_minado_usuario[i]);
+   }
    free(campo_minado_usuario);
+
+   for(i=0;i<tam;i++){
+      free(copia_campo_minado[i]);
+   }
    free(copia_campo_minado);
 
    system("pause");
