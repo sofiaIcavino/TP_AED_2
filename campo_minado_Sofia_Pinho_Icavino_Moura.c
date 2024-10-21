@@ -100,6 +100,27 @@ void visualizar_matriz_usuario(char **matriz,int tamanho){
 
 }
 
+/*Função responsável por configurar o jogo. Ao escolher a dificuldade do jogo, tam recebe 
+a dimensao da matriz e quantBombas recebe a quantidade de bombas de acordo com sua dificuldade*/
+void dificuldadeJogo(int *modo,int* tam,int *quantBomba){
+   switch (*modo)
+   {
+      case 1:
+      *tam=Facil;
+      *quantBomba=BombasF;
+      break;
+
+      case 2:
+      *tam=Medio;
+      *quantBomba=BombasM;
+      break;
+
+      case 3:
+      *tam=Dificil;
+      *quantBomba=BombasD;
+      break;
+   }
+}
 
 /*Função para inserir as bombas de modo aleatório*/
 void inserirBombas(int quantBombas,int **matriz,int tamanho){
@@ -123,7 +144,7 @@ void inserirBombas(int quantBombas,int **matriz,int tamanho){
 }
 
 /*Função verifica quantas bombas tem ao redor da coordenada. Verificando sempre as 8 coordenadas 
-que ficam na vizinhança.*/
+que ficam na vizinhança, e se elas existem.*/
 int colocarQuantidadeDeBombas(int **matriz, int linha, int coluna, int tamanho){ 
     int quantBombas = 0;
 
@@ -194,8 +215,7 @@ void modificar_campo_minado(int **matrizJogo,char **matrizUsuario,int n,int m,in
    */
   if(matrizJogo[n][m]==-1){
    *bomba=0;
-   matrizUsuario[n][m]='*';
-   printf("\n\nBOOH! Ja era...");
+   matrizUsuario[n][m]='B';
   }else{
 
    /*Caso contrário, a coordenada selecionada pelo usuário recebe a quantidade de bombas vizinhas.
@@ -235,31 +255,13 @@ int verificar_Coordenada_Repetida(int linha, int coluna,int ** matriz_copia){
    printf("************ BEM VINDO(A) AO CAMPO MINADO! ************\n");
    printf("Para iniciar o jogo selecione o modo. Digite:\n1 - Facil\n2 - Medio\n3 - Dificil\n");
 
-
-   //Verifca se o usuário coloca o modo diferente de 1,2 e 3
+   //Verifica se o usuário coloca o modo diferente de 1,2 e 3
    while(scanf("%d",&modo),modo<1 || modo>3){
     printf("Modo Indisponivel. Digite:\n1 - Facil\n2 - Medio\n3 - Dificil\n");
    }
 
-   /*Ao escolher a dificuldade do jogo, tam recebe a dimensao da matriz e quantBombas recebe 
-   a quantidade de bombas de acordo com sua dificuldade*/
-   switch (modo)
-   {
-      case 1:
-      tam=Facil;
-      quantBombas=BombasF;
-      break;
-
-      case 2:
-      tam=Medio;
-      quantBombas=BombasM;
-      break;
-
-      case 3:
-      tam=Dificil;
-      quantBombas=BombasD;
-      break;
-   }
+   //Configurar o campo minado de acordo com a dimensao da matriz e a quantidade de bombas
+   dificuldadeJogo(&modo,&tam,&quantBombas);
 
    /*Função para alocar e criar a matriz do jogo e em seguida inicializar ela*/
    int **campo_minado= alocar_matriz(tam);
@@ -286,7 +288,7 @@ int verificar_Coordenada_Repetida(int linha, int coluna,int ** matriz_copia){
       printf("|Dificuldade: %d        |Quantidade de bombas:%d\n",modo,quantBombas);
       visualizar_matriz_usuario(campo_minado_usuario,tam);
 
-      printf("Digite as coordenadas que deseja verificar:\nEx: x,y\n");
+      printf("Digite as coordenadas que deseja verificar:\nx,y\n");
       scanf("%d,%d",&linha,&coluna);
       linha-=1;
       coluna-=1;
@@ -317,6 +319,7 @@ int verificar_Coordenada_Repetida(int linha, int coluna,int ** matriz_copia){
 
    /*Quando encerrado as tentativas, verifica se o jogador ganhou ou perdeu, através da flagbomba.
    Mostrando a matriz original do jogo.*/
+   visualizar_matriz_usuario(campo_minado_usuario,tam);
    if(flagbomba==0){
       printf("\ngame over\n\n");
    }else{
@@ -324,6 +327,7 @@ int verificar_Coordenada_Repetida(int linha, int coluna,int ** matriz_copia){
    }
    printf("MATRIZ ORIGINAL DO JOGO:\n");
    visualizar_matriz(campo_minado,tam);
+
 
    for(i=0;i<tam;i++){
       free(campo_minado[i]);
@@ -339,8 +343,6 @@ int verificar_Coordenada_Repetida(int linha, int coluna,int ** matriz_copia){
       free(copia_campo_minado[i]);
    }
    free(copia_campo_minado);
-
-   system("pause");
 
    return 0;
  }
