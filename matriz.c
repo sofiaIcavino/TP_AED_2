@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-/*Fazer alocacao das matrizes inteiras de maneira dinamica*/
+/*Alocacao das matrizes inteiras de maneira dinamica*/
 int** alocar_matriz(int tamanho){
 	int i=0;
 
